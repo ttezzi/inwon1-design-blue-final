@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>인원산업 | 실사 이미지 기반 메인 시안 v3</title>
+    <style>
+    :root{
+      --bg:#fcfdff;
+      --surface:#ffffff;
+      --surface-2:#f7f9fb;
+      --surface-3:#eef2f6;
+      --ink:#0f172a;
+      --text:#334155;
+      --muted:#64748b;
+      --line:#dbe3ec;
+      --line-2:#e6edf4;
+      --blue:#0f62fe;
+      --blue-2:#2f67e9;
+      --cyan:#1799d5;
+      --green:#24a148;
+      --amber:#f29f05;
+      --navy:#0f172a;
+      --shadow:0 8px 22px rgba(15,23,42,.07);
+      --shadow-2:0 14px 34px rgba(15,23,42,.11);
+      --radius:16px;
+      --radius-sm:10px;
+      --max:1560px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;
+      color:var(--text);
+      line-height:1.72;
+      font-size:16px;
+      background:
+        radial-gradient(900px 380px at 50% -80px, rgba(15,98,254,.09), transparent 60%),
+        linear-gradient(180deg,#ffffff 0%, var(--bg) 100%);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+    .eyebrow{
+      font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color:var(--blue);
+      font-size:12px;
+      font-weight:600;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .section-title h2{
+      margin:8px 0 0;
+      font-size:clamp(28px,2.6vw,44px);
+      line-height:1.08;
+      letter-spacing:-.045em;
+      font-weight:400;
+      color:var(--ink);
+    }
+    .section-title p{
+      margin:14px 0 0;
+      color:var(--muted);
+      font-size:15.5px;
+      line-height:1.78;
+      max-width:820px;
+    }
+    .card{
+      background:var(--surface);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      border-radius:var(--radius);
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      height:46px;padding:0 18px;border-radius:999px;
+      border:1px solid transparent;font-size:14.5px;font-weight:600;
+      transition:.18s ease;white-space:nowrap;
+    }
+    .btn.primary{background:var(--blue);color:#fff;box-shadow:0 10px 18px rgba(15,98,254,.16)}
+    .btn.primary:hover{background:#0b56e3;transform:translateY(-1px)}
+    .btn.ghost{background:#fff;color:var(--blue);border-color:#b8cae3}
+    .btn.ghost:hover{background:#f6f9ff;border-color:var(--blue)}
+    .chip{
+      display:inline-flex;align-items:center;height:34px;padding:0 14px;
+      border-radius:999px;border:1px solid var(--line);
+      background:#fff;font-size:13px;font-weight:700;color:#234;
+    }
+
+    .topbar{
+      position:sticky;top:0;z-index:30;
+      backdrop-filter:blur(12px);
+      background:rgba(255,255,255,.92);
+      border-bottom:1px solid rgba(219,227,236,.88);
+    }
+    .topbar .inner{
+      min-height:80px;display:flex;align-items:center;justify-content:space-between;gap:18px;
+    }
+    .brand{display:flex;align-items:center;gap:0}
+    .brand-copy{display:flex;flex-direction:column;gap:2px;line-height:1;text-decoration:none;color:var(--ink)}
+    .brand-copy strong{display:block;font-size:26px;letter-spacing:-.055em;font-weight:800}
+    .brand-copy span{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:700}
+    .brand-logo{width:175px;height:auto;display:block;flex:0 0 auto}
+    .nav{display:flex;align-items:center;gap:18px;font-size:14px;font-weight:700;color:#324258}
+    .nav a{padding:10px 2px;opacity:.88;position:relative}
+    .nav a::after{
+      content:'';position:absolute;left:0;right:0;bottom:2px;height:2px;border-radius:999px;
+      background:var(--blue);transform:scaleX(0);transform-origin:center;transition:transform .18s ease;
+    }
+    .nav a:hover{color:var(--blue);opacity:1}
+    .nav a:hover::after{transform:scaleX(1)}
+    .header-meta{display:flex;align-items:center;gap:10px;flex:0 0 auto}
+    .header-badge{
+      height:38px;padding:0 14px;border-radius:999px;border:1px solid #d6e0ee;
+      background:#fff;color:#334155;font-size:13px;font-weight:700;display:inline-flex;align-items:center;
+    }
+
+    .hero{padding:34px 0 42px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.02fr .98fr;
+      gap:24px;
+      align-items:stretch;
+    }
+    .hero-copy{
+      padding:44px 42px 40px;
+      display:flex;flex-direction:column;justify-content:center;min-height:560px;
+    }
+    .hero-copy h1{
+      margin:10px 0 14px;
+      font-size:clamp(42px,4vw,68px);
+      line-height:1.02;
+      letter-spacing:-.06em;
+      font-weight:400;
+      color:var(--ink);
+      max-width:11ch;
+    }
+    .hero-copy .lead{
+      margin:0;
+      font-size:16.5px;
+      line-height:1.86;
+      color:var(--muted);
+      max-width:52rem;
+    }
+    .hero-actions{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:12px;
+      margin-top:26px;
+      align-items:stretch;
+    }
+    .hero-primary .btn.primary,
+    .hero-secondary .btn{width:100%}
+    .hero-primary .btn.primary{
+      height:52px;
+      font-size:16px;
+      justify-content:flex-start;
+      padding:0 20px;
+      box-shadow:0 12px 22px rgba(15,98,254,.18);
+    }
+    .hero-secondary{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+    .hero-secondary .btn{
+      height:52px;
+      font-size:15px;
+    }
+    .hero-secondary .btn.ghost{
+      background:var(--surface-2);
+      color:var(--ink);
+      border-color:var(--line);
+    }
+    .hero-secondary .btn.ghost:hover{
+      background:#fff;
+      border-color:#b8cae3;
+      transform:translateY(-1px);
+    }
+    .hero-badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+    .hero-stats{
+      margin-top:auto;
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:14px;
+      padding-top:28px;
+    }
+    .stat{
+      background:var(--surface-2);
+      border:1px solid var(--line-2);
+      border-radius:14px;
+      padding:16px 16px 14px;
+      min-height:94px;
+    }
+    .stat .k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--blue);text-transform:uppercase}
+    .stat .v{margin-top:8px;font-size:18px;font-weight:700;letter-spacing:-.04em}
+    .stat .d{margin-top:6px;font-size:13px;line-height:1.62;color:var(--muted)}
+
+    .hero-visual{
+      padding:20px;
+      border-radius:22px;
+      background:linear-gradient(180deg,#fcfdff 0%, #f4f8fd 100%);
+      border:1px solid #e0e8f2;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      min-height:560px;
+    }
+    .hero-visual .photo-layout{
+      display:grid;
+      grid-template-columns:1.18fr .82fr;
+      gap:16px;
+      height:100%;
+    }
+    .photo-main,
+    .photo-tall,
+    .photo-small{
+      position:relative;
+      overflow:hidden;
+      border-radius:18px;
+      border:1px solid #dce6f0;
+      background:#dfe7f0;
+    }
+    .photo-main{min-height:100%;}
+    .photo-main img,
+    .photo-tall img,
+    .photo-small img{width:100%;height:100%;object-fit:cover}
+    .photo-main::after,
+    .photo-tall::after,
+    .photo-small::after{
+      content:'';position:absolute;inset:0;
+      background:linear-gradient(180deg, rgba(16,27,45,.06) 0%, rgba(16,27,45,.26) 100%);
+      pointer-events:none;
+    }
+    .overlay-top{
+      position:absolute;left:18px;top:18px;z-index:2;
+      background:rgba(255,255,255,.9);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(220,230,240,.95);
+      border-radius:999px;
+      padding:8px 12px;
+      font-family:'IBM Plex Mono',monospace;
+      font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);font-weight:600;
+    }
+    .overlay-bottom{
+      position:absolute;left:18px;right:18px;bottom:18px;z-index:2;
+      background:rgba(15,23,42,.9);
+      color:#fff;border-radius:18px;padding:14px 15px 13px;
+      box-shadow:var(--shadow-2);
+    }
+    .overlay-bottom b{display:block;font-size:16px;letter-spacing:-.03em}
+    .overlay-bottom p{margin:6px 0 0;color:#dbe6f4;font-size:13px;line-height:1.55}
+    .mini-stack{display:grid;grid-template-rows:1fr 1fr;gap:14px}
+    .mini-stack .photo-tall{min-height:0}
+    .mini-stack .photo-small{min-height:0}
+    .img-caption{
+      position:absolute;left:16px;right:16px;bottom:16px;z-index:2;
+      display:flex;justify-content:space-between;gap:10px;align-items:end;
+      color:#fff
+    }
+    .img-caption .label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#cfe0ff}
+    .img-caption .title{font-size:18px;font-weight:700;letter-spacing:-.03em;max-width:12ch;line-height:1.08}
+    .img-caption .sub{font-size:13px;color:#dbe6f4;line-height:1.4}
+
+    .section{padding:0 0 36px}
+    .section-card{padding:34px;border-radius:30px}
+    .section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:20px}
+    .section-head .copy{max-width:860px}
+
+    .flow-line{
+      display:grid;grid-template-columns:24% 24% 24% 28%;gap:0;
+      margin:18px 0 18px;height:4px;border-radius:999px;background:#ced9e6;overflow:hidden;
+    }
+    .flow-line span:nth-child(1){background:var(--blue)}
+    .flow-line span:nth-child(2){background:var(--cyan)}
+    .flow-line span:nth-child(3){background:var(--green)}
+    .flow-line span:nth-child(4){background:var(--amber)}
+    .flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .flow-card{
+      background:#fbfdff;border:1px solid #dce6f0;border-radius:18px;padding:20px;min-height:156px;
+    }
+    .flow-card .top{display:flex;gap:12px;align-items:center}
+    .dot{width:38px;height:38px;border-radius:12px;flex:0 0 auto}
+    .dot.blue{background:var(--blue)}
+    .dot.cyan{background:var(--cyan)}
+    .dot.green{background:var(--green)}
+    .dot.amber{background:var(--amber)}
+    .flow-card b{font-size:18px;letter-spacing:-.03em}
+    .flow-card p{margin:12px 0 0;color:var(--muted);line-height:1.72;font-size:14.5px}
+
+    .split{display:grid;grid-template-columns:1.12fr .88fr;gap:20px}
+    .facility,.environment,.contact{min-height:100%}
+    .photo-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;margin-top:18px}
+    .photo-panel{
+      position:relative;overflow:hidden;border-radius:18px;border:1px solid #dce6f0;background:#dde6f1;
+      min-height:250px;
+    }
+    .photo-panel img{width:100%;height:100%;object-fit:cover}
+    .photo-panel::after{
+      content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(16,27,45,.05) 0%, rgba(16,27,45,.2) 100%);
+    }
+    .photo-panel .tag,
+    .photo-vertical .tag,
+    .gallery-card .tag{
+      position:absolute;left:16px;top:16px;z-index:2;
+      background:rgba(255,255,255,.9);backdrop-filter:blur(10px);
+      border:1px solid rgba(220,230,240,.95);border-radius:999px;padding:8px 12px;
+      font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);font-weight:600;
+    }
+    .photo-vertical{position:relative;overflow:hidden;border-radius:18px;border:1px solid #dce6f0;min-height:250px}
+    .photo-vertical img{width:100%;height:100%;object-fit:cover}
+    .photo-vertical::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(16,27,45,.04) 0%, rgba(16,27,45,.22) 100%)}
+    .photo-grid-two{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
+    .gallery-card{
+      position:relative;overflow:hidden;border-radius:18px;border:1px solid #dce6f0;background:#dde6f1;min-height:140px;
+    }
+    .gallery-card img{width:100%;height:100%;object-fit:cover}
+    .gallery-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(16,27,45,.08) 0%, rgba(16,27,45,.22) 100%)}
+    .gallery-card .bottom{
+      position:absolute;left:16px;right:16px;bottom:14px;z-index:2;color:#fff;
+    }
+    .gallery-card .bottom b{display:block;font-size:15px;letter-spacing:-.03em}
+    .gallery-card .bottom span{display:block;margin-top:4px;font-size:12px;line-height:1.45;color:#dfe9f6}
+
+    .environment{display:flex;flex-direction:column;gap:14px}
+    .env-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .metric{
+      background:#fff;border:1px solid #dde6f0;border-radius:18px;padding:15px 15px 13px;
+    }
+    .metric span{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;font-size:11px;letter-spacing:.08em;color:var(--muted)}
+    .metric strong{display:block;margin-top:8px;font-size:28px;line-height:1;letter-spacing:-.05em}
+    .metric.blue strong{color:var(--blue)}
+    .metric.green strong{color:var(--green)}
+    .metric.cyan strong{color:var(--cyan)}
+    .impact{
+      background:linear-gradient(180deg,#fbfdff 0%,#f7fbff 100%);
+      border:1px solid #dde6f0;border-radius:18px;padding:20px;flex:1;position:relative;overflow:hidden;
+    }
+    .impact h3{margin:18px 0 0;font-size:22px;letter-spacing:-.04em}
+    .impact p{margin:10px 0 0;color:var(--muted);line-height:1.7}
+    .impact .row{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+    .impact .banner{
+      margin-top:14px;background:var(--navy);color:#fff;border-radius:18px;padding:18px 20px;min-height:94px;
+    }
+    .impact .banner b{display:block;font-size:15px;color:#9ec0ff}
+    .impact .banner p{margin-top:8px;color:#d7e2f4;font-size:14px;line-height:1.65}
+
+    .contact-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:18px}
+    .map{
+      min-height:312px;position:relative;overflow:hidden;border-radius:18px;border:1px solid #dde6f0;
+      background:linear-gradient(180deg,#f5f8fc 0%,#eef4fa 100%);
+    }
+    .map .gridh,.map .gridv{position:absolute;inset:0}
+    .map .gridh::before,
+    .map .gridh::after,
+    .map .gridv::before,
+    .map .gridv::after{content:'';position:absolute;background:#dce6f0}
+    .map .gridh::before{left:0;right:0;top:25%;height:1px;box-shadow:0 72px 0 #dce6f0,0 144px 0 #dce6f0,0 216px 0 #dce6f0}
+    .map .gridv::before{top:0;bottom:0;left:18%;width:1px;box-shadow:104px 0 0 #dce6f0,208px 0 0 #dce6f0,312px 0 0 #dce6f0,416px 0 0 #dce6f0}
+    .map .pin{position:absolute;right:96px;top:56px;width:18px;height:18px;border-radius:50%;background:var(--blue);box-shadow:0 10px 24px rgba(15,98,254,.22)}
+    .map .cardbox{
+      position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+      width:min(62%,360px);background:#fff;border:1px solid #dce6f0;border-radius:20px;box-shadow:var(--shadow);padding:22px;
+    }
+    .map .cardbox strong{display:block;font-size:19px;letter-spacing:-.04em}
+    .map .cardbox p{margin:8px 0 0;color:var(--muted);line-height:1.72}
+    .contact-list{display:grid;gap:12px}
+    .contact-item{
+      background:#fff;border:1px solid #dde6f0;border-radius:18px;padding:18px 20px;
+      display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:68px;
+    }
+    .contact-item b{font-size:15px}
+    .contact-item span{color:var(--muted);font-size:14px;line-height:1.5}
+    .contact-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+
+    footer{padding:0 0 34px}
+    .footer-card{
+      background:var(--navy);color:#eaf1fb;border-radius:22px;padding:30px 30px 26px;
+      box-shadow:var(--shadow-2)
+    }
+    .footer-grid{
+      display:grid;grid-template-columns:1.25fr .9fr 1fr 1fr;gap:22px;align-items:start
+    }
+    .footer-brand strong{display:block;font-size:22px;letter-spacing:-.05em}
+    .footer-brand p{margin:10px 0 0;color:#b7c4d3;line-height:1.7;font-size:14px;max-width:38rem}
+    .footer-title{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#8bb8ff;font-weight:700;margin-bottom:10px}
+    .footer-links{display:grid;gap:10px;font-size:14px;color:#dce7f4}
+    .footer-links a{width:fit-content;opacity:.9}
+    .footer-links a:hover{color:#fff;opacity:1}
+    .footer-list{display:grid;gap:10px;font-size:14px;color:#dce7f4;line-height:1.6}
+    .footer-list span{color:#b7c4d3}
+    .footer-bottom{
+      margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);
+      display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+      color:#b7c4d3;font-size:13px
+    }
+    .footer-bottom .small-links{display:flex;gap:16px;flex-wrap:wrap}
+    .footer-bottom a{color:#dce7f4;opacity:.9}
+    .footer-bottom a:hover{color:#fff;opacity:1}
+
+    @media (max-width:1180px){
+      .hero-grid,.split,.contact-grid{grid-template-columns:1fr}
+      .flow-grid{grid-template-columns:repeat(2,1fr)}
+      .nav{display:none}
+      .hero-copy{min-height:auto}
+      .hero-visual{min-height:500px}
+      .photo-grid{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width:720px){
+      .wrap{padding:0 16px}
+      .hero{padding-top:18px}
+      .hero-copy,.section-card{padding:22px}
+      .hero-actions{grid-template-columns:1fr}
+      .hero-secondary{grid-template-columns:1fr}
+      .hero-copy h1{font-size:clamp(34px,11vw,48px)}
+      .hero-copy .lead,.section-title p{font-size:15px}
+      .hero-stats,.flow-grid,.photo-grid,.photo-grid-two,.env-metrics{grid-template-columns:1fr}
+      .hero-visual{min-height:auto}
+      .topbar .inner{min-height:72px}
+      .brand-copy strong{font-size:20px}
+      .contact-item{align-items:flex-start;flex-direction:column}
+      .map .cardbox{width:calc(100% - 32px)}
+      .photo-layout{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap inner">
+      <div class="brand">
+        <a class="brand-copy" href="./inwon-industrial-main-v3.html" aria-label="인원산업 홈"><strong>인원산업</strong><span>Inwon Industrial</span></a>
+      </div>
+                  <nav class="nav" aria-label="주요 메뉴">
+        <a href="./inwon-about.html">소개</a>
+        <a href="./inwon-business.html">사업분야</a>
+        <a href="./inwon-facility.html">플랜트/장비</a>
+        <a href="./inwon-performance.html">실적</a>
+        <a href="#contact">문의</a>
+      </nav>
+      <div class="header-meta">
+        <span class="header-badge">현장 상담 가능</span>
+        <a class="btn primary" href="#contact">문의하기</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="about">
+      <div class="wrap">
+        <div class="card hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow">Blue-first industrial brand / real photo direction</div>
+            <h1>실사 이미지로<br>신뢰를 만드는 산업 홈페이지</h1>
+            <p class="lead">1995년 시작과 2002년 법인 설립을 바탕으로, 건설폐기물 중간처리·수집운반·재생골재 생산판매·해체공사를 한 흐름으로 읽히게 하는 방향입니다. 장식보다 실제 현장 사진, 공정 흐름, 시설 증거를 앞세워 공식 홈페이지의 정보성을 강화하였습니다.</p>
+            <div class="hero-actions">
+              <div class="hero-primary">
+                <a class="btn primary" href="#business">사업영역 보기</a>
+              </div>
+              <div class="hero-secondary">
+                <a class="btn ghost" href="#environment">환경기여</a>
+                <a class="btn ghost" href="#contact">문의</a>
+              </div>
+            </div>
+            <div class="hero-badges">
+              <span class="chip">파란 로고 유지</span>
+              <span class="chip">실사 이미지 우선</span>
+              <span class="chip">B2B 구조 강화</span>
+            </div>
+            <div class="hero-stats">
+              <div class="stat"><div class="k">operation</div><div class="v">현장 운영</div><div class="d">수집운반부터 중간처리, 생산, 출하까지 이어지는 구조</div></div>
+              <div class="stat"><div class="k">equipment</div><div class="v">장비 구성</div><div class="d">크러싱·샌드·배쳐 플랜트와 현장 대응 라인</div></div>
+              <div class="stat"><div class="k">trust</div><div class="v">실적 관리</div><div class="d">현장명과 공종이 함께 보이는 검증된 실적</div></div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-label="실사 이미지 콜라주">
+            <div class="photo-layout">
+              <div class="photo-main">
+                <div class="overlay-top">facility / recycling process</div>
+                <img src="https://images.pexels.com/photos/36397806/pexels-photo-36397806/free-photo-of-industrial-claw-crane-in-recycling-facility.jpeg?auto=compress&w=1260&h=750&dpr=1" alt="재활용 시설에서 스크랩 메탈을 집어 올리는 산업용 크레인" />
+                <div class="overlay-bottom">
+                  <b>실제 운영되는 현장감</b>
+                  <p>재활용 시설의 크레인 사진을 메인에 배치해, 장식 대신 현장 자체가 힘을 갖도록 만들었습니다.</p>
+                </div>
+              </div>
+              <div class="mini-stack">
+                <div class="photo-tall">
+                  <img src="https://images.pexels.com/photos/15105580/pexels-photo-15105580/free-photo-of-debris-and-rubble-from-a-demolished-building.png?auto=compress&w=1260&h=750&dpr=1" alt="철거 후 발생한 건설폐기물과 잔해" />
+                  <div class="img-caption">
+                    <div>
+                      <div class="label">waste stream</div>
+                      <div class="title">건설폐기물</div>
+                    </div>
+                    <div class="sub">분류·이송·중간처리의 시작점</div>
+                  </div>
+                </div>
+                <div class="photo-small">
+                  <img src="https://images.pexels.com/photos/36397935/pexels-photo-36397935/free-photo-of-industrial-scrap-metal-recycling-yard-scene.jpeg?cs=tinysrgb&dpr=1&w=500" alt="산업용 재활용 야드와 스크랩 금속" />
+                  <div class="img-caption">
+                    <div>
+                      <div class="label">yard / flow</div>
+                      <div class="title">출하 동선</div>
+                    </div>
+                    <div class="sub">현장 운영이 보이는 정돈된 이미지</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="business">
+      <div class="wrap">
+        <div class="card section-card">
+          <div class="section-head">
+            <div class="copy">
+              <div class="eyebrow">Business Flow</div>
+              <div class="section-title">
+                <h2>사업영역은 공정 흐름으로 보여줍니다</h2>
+                <p>카드 나열 대신 실제 산업 현장이 어떻게 자원순환과 생산으로 이어지는지 한 줄로 읽히게 합니다. 핵심 사업만 짧게 보여주는 것이 더 강합니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="flow-line" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+          <div class="flow-grid">
+            <article class="flow-card">
+              <div class="top"><span class="dot blue"></span><b>01 수집·운반</b></div>
+              <p>현장 자재와 폐기물을 회수해 처리장으로 연결합니다. 수집운반 역량이 곧 운영 능력입니다.</p>
+            </article>
+            <article class="flow-card">
+              <div class="top"><span class="dot cyan"></span><b>02 중간처리</b></div>
+              <p>선별·파쇄·재생 공정으로 자원 회수의 구조를 만듭니다. 건설폐기물을 재생 가능한 자재로 바꾸는 핵심 단계입니다.</p>
+            </article>
+            <article class="flow-card">
+              <div class="top"><span class="dot green"></span><b>03 순환골재</b></div>
+              <p>품질 기준에 맞춘 생산으로 기술력과 실무 신뢰를 전달합니다. 납품과 현장 적용까지 이어져야 실적이 됩니다.</p>
+            </article>
+            <article class="flow-card">
+              <div class="top"><span class="dot amber"></span><b>04 재투입</b></div>
+              <p>도로·토목 현장으로 환원되어 환경 기여가 결과로 이어집니다. 생산과 납품이 함께 보여야 구조가 완성됩니다.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="facility">
+      <div class="wrap split">
+        <div class="card section-card facility">
+          <div class="section-head">
+            <div class="copy">
+              <div class="eyebrow">Facility</div>
+              <div class="section-title">
+                <h2>시설과 장비가 곧 신뢰입니다</h2>
+                <p>실제 현장 사진을 크게 쓰고, 설명은 짧게 붙입니다. 이 업종은 장식보다 시설 증거와 장비 구성이 훨씬 강합니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="photo-grid">
+            <div class="photo-panel">
+              <div class="tag">plant overview</div>
+              <img src="https://images.pexels.com/photos/36397860/pexels-photo-36397860/free-photo-of-industrial-crane-sorting-scrap-metal-in-facility.jpeg?cs=tinysrgb&dpr=1&w=500" alt="재활용 시설 내부에서 스크랩 금속을 정리하는 크레인" />
+            </div>
+            <div class="photo-vertical">
+              <div class="tag">construction waste</div>
+              <img src="https://images.pexels.com/photos/28041688/pexels-photo-28041688/free-photo-of-a-building-is-being-demolished-by-a-crane.jpeg?cs=tinysrgb&dpr=1&w=500" alt="철거 현장에서 크레인이 건물을 해체하는 장면" />
+            </div>
+          </div>
+          <div class="photo-grid-two">
+            <div class="gallery-card">
+              <img src="https://images.pexels.com/photos/21914025/pexels-photo-21914025/free-photo-of-destroyed-building-on-a-construction-site.jpeg?cs=tinysrgb&dpr=1&w=500" alt="건설 현장에서 파손된 건물과 굴삭기" />
+              <div class="tag">demolition</div>
+              <div class="bottom"><b>철거·해체</b><span>수거 전 단계의 현장 감각</span></div>
+            </div>
+            <div class="gallery-card">
+              <img src="https://images.pexels.com/photos/31249540/pexels-photo-31249540/free-photo-of-urban-rubble-from-building-demolition-site.jpeg?cs=tinysrgb&dpr=1&w=500" alt="도심 철거 잔해와 콘크리트 더미" />
+              <div class="tag">rubble flow</div>
+              <div class="bottom"><b>잔재 처리</b><span>재자원화로 이어지는 출발점</span></div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="card section-card environment" id="environment">
+          <div class="section-title">
+            <div class="eyebrow">Environment</div>
+            <h2>환경 이미지는 구조로 보여줍니다</h2>
+            <p>파란 로고를 메인으로 유지하고, 친환경은 운영 방식과 결과로 보여주는 편이 더 자연스럽습니다.</p>
+          </div>
+          <div class="env-metrics">
+            <div class="metric blue"><span>재자원화</span><strong>순환</strong></div>
+            <div class="metric green"><span>천연골재 대체</span><strong>생산</strong></div>
+            <div class="metric cyan"><span>안전점검</span><strong>상시</strong></div>
+          </div>
+          <div class="impact">
+            <div class="eyebrow">Trust / Safety / Quality</div>
+            <h3>핵심 메시지</h3>
+            <p>“폐기물 처리”가 아니라 “자원순환과 생산을 수행하는 기업”으로 읽히게 해야 합니다.</p>
+            <div class="row">
+              <span class="chip">사업소개</span>
+              <span class="chip">실적연혁</span>
+              <span class="chip">환경관리</span>
+            </div>
+            <div class="banner">
+              <b>현장 운영 기준</b>
+              <p>분진, 소음, 정리 상태, 동선 관리가 보이면 홈페이지 전체의 신뢰도가 올라갑니다.</p>
+            </div>
+            <div class="contact-actions" style="margin-top:14px;">
+              <a class="btn primary" href="#contact">견적 문의</a>
+              <a class="btn ghost" href="#contact">현장 방문</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="impact">
+      <div class="wrap">
+        <div class="card section-card">
+          <div class="section-head">
+            <div class="copy">
+              <div class="eyebrow">Trust & Contact</div>
+              <div class="section-title">
+                <h2>실적과 문의를 한 흐름으로 마무리</h2>
+                <p>기업 홈페이지는 마지막에 “누구에게 연락해야 하는지”가 분명해야 합니다. 위치와 문의가 함께 보여야 합니다.</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-grid">
+            <div class="map">
+              <div class="gridh"></div><div class="gridv"></div>
+              <div class="pin"></div>
+              <div class="cardbox">
+                <strong>현장과 공정이 연결된 구조</strong>
+                <p>실적 / 연혁 / 시설 / 환경관리 / 문의가 한 흐름으로 이어지도록 구성했습니다. 마지막에는 바로 문의로 이어지도록 마무리합니다.</p>
+              </div>
+            </div>
+            <div class="contact-list">
+              <div class="contact-item"><b>오시는 길</b><span>주소 · 전화 · 이메일 · 주차 안내</span></div>
+              <div class="contact-item"><b>빠른 문의</b><span>현장 상담 · 견적 요청 · 자료 요청</span></div>
+              <div class="contact-item"><b>사업 정보</b><span>중간처리 · 순환골재 · 해체공사 · 임대</span></div>
+              <div class="contact-item"><b>전환 동선</b><span class="contact-actions"><a class="btn primary" href="#">문의하기</a><a class="btn ghost" href="#">현장 방문</a></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-card">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <strong>인원산업</strong>
+            <p>건설폐기물 중간처리, 수집운반, 재생골재 생산판매, 해체공사, 플랜트 운영을 현장 중심으로 수행하는 산업 기업입니다.</p>
+          </div>
+          <div>
+            <div class="footer-title">Quick Menu</div>
+                                    <div class="footer-links">
+              <a href="./inwon-about.html">회사소개</a>
+              <a href="./inwon-business.html">사업영역</a>
+              <a href="./inwon-facility.html">시설/장비</a>
+              <a href="./inwon-performance.html">실적/연혁</a>
+              <a href="#contact">문의하기</a>
+            </div>
+          </div>
+          <div>
+            <div class="footer-title">Company Info</div>
+            <div class="footer-list">
+              <div><span>주소</span><br>전라남도 담양군 봉산면 제월길 216-17</div>
+              <div><span>사업영역</span><br>건설폐기물 중간처리, 수집운반, 순환골재 생산판매, 해체공사, 크러싱 플랜트 임대</div>
+            </div>
+          </div>
+          <div>
+            <div class="footer-title">Contact</div>
+            <div class="footer-list">
+              <div><span>문의</span><br>현장 상담 및 견적 요청</div>
+              <div><span>운영</span><br>평일 기준 상담 / 현장 일정 조율</div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <div>© 2026 Inwon Industrial. All rights reserved.</div>
+          <div class="small-links">
+            <a href="./inwon-about.html">회사소개</a>
+            <a href="#contact">오시는 길</a>
+            <a href="./inwon-business.html">서비스</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
