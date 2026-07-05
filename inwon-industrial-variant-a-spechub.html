@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>인원산업 | A안 SpecHub형 디자인</title>
+<style>
+:root{--ink:#0b1220;--text:#243042;--muted:#5c7088;--line:#dde4ed;--line-2:#eaf1f7;--surface:#ffffff;--bg:#f5f8fb;--blue:#0a5cff;--blue-2:#0b49c7;--cyan:#0da5c9;--green:#1f9d55;--amber:#e7960b;--red:#d13526;--navy:#0b1220;--shadow:0 10px 30px rgba(10,18,32,.08);--shadow-2:0 18px 40px rgba(10,18,32,.14);--radius:18px;--radius-sm:12px;--max:1560px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;color:var(--text);line-height:1.62;font-size:15.5px;background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration:none}
+.topbar{position:sticky;top:0;z-index:30;backdrop-filter:blur(14px);background:rgba(245,248,251,.88);border-bottom:1px solid rgba(221,228,237,.9)}
+.topbar .inner{max-width:var(--max);margin:0 auto;padding:0 28px;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand strong{font-size:22px;letter-spacing:-.06em;color:var(--ink)}.brand span{display:block;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:800}
+.nav{display:flex;align-items:center;gap:20px;font-size:13.5px;font-weight:800;color:#3a4b61}
+.nav a{opacity:.92}.nav a:hover{color:var(--blue)}
+.header-meta{display:flex;align-items:center;gap:10px}
+.badge{height:34px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:13px;font-weight:800;display:inline-flex;align-items:center;color:#354252}
+.btn{display:inline-flex;align-items:center;justify-content:center;height:44px;padding:0 16px;border-radius:999px;border:1px solid transparent;font-size:14px;font-weight:800;transition:.18s ease;white-space:nowrap}.btn.primary{background:var(--blue);color:#fff;box-shadow:0 12px 22px rgba(10,93,255,.18)}.btn.primary:hover{background:#0946d8;transform:translateY(-1px)}.btn.ghost{background:#fff;color:var(--blue);border-color:#cdd8e6}.btn.ghost:hover{background:#f4f8ff;border-color:var(--blue)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+.eyebrow{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;color:var(--blue);font-size:11.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.section-title h2{margin:8px 0 0;font-size:clamp(24px,2.2vw,34px);line-height:1.08;letter-spacing:-.05em;font-weight:800;color:var(--ink)}
+.section-title p{margin:10px 0 0;color:var(--muted);font-size:14.5px;line-height:1.72;max-width:820px}
+.page{padding:28px 0 36px}
+.hero{padding:22px 0 30px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:stretch}
+.hero-copy{padding:28px;border-radius:22px;background:linear-gradient(180deg,#fff 0%,#f7fafd 100%);border:1px solid var(--line);box-shadow:var(--shadow)}
+.hero-copy h1{margin:10px 0 14px;font-size:clamp(34px,3.2vw,52px);line-height:1.02;letter-spacing:-.06em;font-weight:800;color:var(--ink);max-width:12ch}
+.hero-copy .lead{margin:0;color:var(--muted);line-height:1.74;max-width:56rem;font-size:15px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:#fff;font-size:12.5px;font-weight:800;color:#2a3a4e;display:inline-flex;align-items:center}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+.kpi{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:14px}
+.kpi .k{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:10.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;font-weight:800}
+.kpi .v{margin-top:8px;font-size:20px;font-weight:900;letter-spacing:-.04em;color:var(--ink)}
+.kpi .d{margin-top:6px;font-size:13px;line-height:1.55;color:var(--muted)}
+.hero-visual{position:relative;overflow:hidden;border-radius:22px;border:1px solid var(--line);background:#dde6f1;min-height:520px}
+.hero-visual img{width:100%;height:100%;object-fit:cover;filter:contrast(1.02) saturate(.92)}
+.hero-visual .overlay{position:absolute;left:18px;top:18px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid rgba(220,230,240,.95);border-radius:999px;padding:8px 12px;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);font-weight:800}
+.card{background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:var(--radius)}
+.panel{padding:24px 26px}
+.section-grid{display:grid;gap:16px}
+.two{grid-template-columns:1.12fr .88fr}
+.three{grid-template-columns:repeat(3,1fr)}
+.four{grid-template-columns:repeat(4,1fr)}
+.table{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px}
+.table th{text-align:left;padding:10px 12px;background:#f4f7fb;color:#3a4b61;font-weight:800;border-bottom:1px solid var(--line);white-space:nowrap}
+.table td{padding:10px 12px;color:var(--text);border-bottom:1px solid var(--line)}
+.table tr:last-child td{border-bottom:0}
+.taglist{display:flex;flex-wrap:wrap;gap:6px}
+.tag{height:28px;padding:0 10px;border-radius:999px;background:#eef4fb;border:1px solid #dde6f0;font-size:12px;font-weight:800;color:#2a3a4e;display:inline-flex;align-items:center;gap:6px}
+.status{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;color:var(--green)}
+.status .dot{width:9px;height:9px;border-radius:50%;background:var(--green)}
+.cta-bar{margin-top:18px;padding:18px;border-radius:18px;background:linear-gradient(180deg,#f7fbff,#ffffff);border:1px solid #dde6f0;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+.cta-text{font-weight:800;color:var(--ink);font-size:16px;letter-spacing:-.03em}
+.cta-text small{display:block;font-weight:600;color:var(--muted);font-size:13px;margin-top:6px}
+.footer{padding-bottom:36px}
+.footer-card{background:var(--navy);color:#dce7f4;border-radius:22px;padding:26px}
+.footer-grid{display:grid;grid-template-columns:1.25fr .9fr 1fr 1fr;gap:22px}
+.footer-brand strong{display:block;font-size:20px;letter-spacing:-.05em}
+.footer-grid p{margin:10px 0 0;color:#9aadc4;line-height:1.7;font-size:14px;max-width:38rem}
+.footer-title{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#7faee6;font-weight:800;margin-bottom:10px}
+.footer-list{display:grid;gap:10px;font-size:14px;color:#dce7f4;line-height:1.6}
+.footer-list span{color:#8ca1b8}
+.footer-bottom{margin-top:22px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#8ca1b8;font-size:13px}
+.process{display:grid;grid-template-columns:24% 24% 24% 28%;gap:0;height:5px;border-radius:999px;background:#dbe3ec;overflow:hidden;margin:14px 0 18px}
+.process span:nth-child(1){background:var(--blue)}.process span:nth-child(2){background:var(--cyan)}.process span:nth-child(3){background:var(--green)}.process span:nth-child(4){background:var(--amber)}
+.zone{border-radius:18px;border:1px solid var(--line);background:#fff;padding:18px 20px;display:flex;justify-content:space-between;gap:12px;align-items:center;min-height:68px}
+.zone b{font-size:15px}.zone span{color:var(--muted);font-size:13.5px;line-height:1.55}
+.zone-list{display:grid;gap:10px}
+.product{border-radius:18px;border:1px solid var(--line);background:#fff;padding:18px 20px;overflow:hidden;position:relative}
+.product .label{position:absolute;right:16px;top:16px;padding:6px 10px;border-radius:999px;background:#eef4fb;border:1px solid #dde6f0;font-size:11px;font-weight:800;color:#2f4b6b}
+.product .name{font-size:16px;font-weight:900;letter-spacing:-.03em}.product .spec{margin-top:8px;color:var(--muted);font-size:13.5px;line-height:1.6}
+.product .use{margin-top:10px;font-size:13px;color:#324252;font-weight:700}
+.map{min-height:280px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(180deg,#f5f8fc,#eef4fa);overflow:hidden;position:relative}
+.map .grid{position:absolute;inset:0;background-image:linear-gradient(#dde6f0 1px, transparent 1px), linear-gradient(90deg,#dde6f0 1px, transparent 1px);background-size:56px 56px;opacity:.6}
+.map .pin{position:absolute;right:82px;top:48px;width:16px;height:16px;border-radius:50%;background:var(--blue);box-shadow:0 10px 22px rgba(10,93,255,.22)}
+.map .copyright{position:absolute;right:18px;bottom:14px;font-size:11px;color:#8aa3bc;font-weight:800}
+@media (max-width:1180px){.hero-grid,.two,.three,.four{grid-template-columns:1fr}.nav{display:none}}
+@media (max-width:860px){.wrap{padding:0 18px}.hero-copy{padding:22px}.kpis{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="topbar">
+<div class="inner">
+<div class="brand">
+<a class="brand-copy" href="./inwon-industrial-variant-a-spechub.html" style="color:inherit;text-decoration:none"><strong>인원산업</strong><span>Inwon Industrial</span></a>
+</div>
+<nav class="nav" aria-label="주요 메뉴">
+<a href="./inwon-industrial-variant-a-spechub.html">SpecHub</a>
+<a href="./inwon-industrial-variant-b-command.html">Command</a>
+<a href="./inwon-industrial-variant-c-convert.html">Convert</a>
+<a href="#quote">견적문의</a>
+</nav>
+<div class="header-meta">
+<span class="badge">사업자등록·인증 보유</span>
+<a class="btn primary" href="#quote">견적 문의하기</a>
+</div>
+</div>
+</header>
+
+<main>
+
+<section class="page hero">
+<div class="wrap">
+<div class="hero-grid">
+<div class="hero-copy">
+<div class="eyebrow">SpecSheet / Hub</div>
+<h1>설계·시공자가<br>먼저 찾는 사양형 안</h1>
+<p class="lead">규격, 등록·허가, 처리능력, 대응권역, 수거지역, 제품용도 단위로 정리했습니다. 추상적인 홍보보다 수치와 허가 정보를 우선 배치합니다.</p>
+<div class="hero-actions">
+<a class="btn primary" href="#spec">사업별 사양</a>
+<a class="btn ghost" href="#zones">대응권역</a>
+<a class="btn ghost" href="#facility">시설 배치</a>
+</div>
+<div class="chips">
+<span class="chip">사업자등록·등록증</span>
+<span class="chip">품질인증</span>
+<span class="chip">수거지역별 정책</span>
+<span class="chip">순환골재 규격</span>
+</div>
+<div class="kpis">
+<div class="kpi"><div class="k">License</div><div class="v">사업자·인증</div><div class="d">사업자등록·품질인증·등록·허가증</div></div>
+<div class="kpi"><div class="k">Capacity</div><div class="v">처리·생산 능력</div><div class="d">하루 투입·출고 기준</div></div>
+<div class="kpi"><div class="k">Zone</div><div class="v">대응권역</div><div class="d">수거지역·견적문의 대상</div></div>
+</div>
+</div>
+<div class="hero-visual">
+<div class="overlay">facility spec overview</div>
+<img src="https://images.pexels.com/photos/28041688/pexels-photo-28041688/free-photo-of-a-building-is-being-demolished-by-a-crane.jpeg?cs=tinysrgb&dpr=1&w=1400" alt="해체 현장 이미지" />
+</div>
+</div>
+</div>
+</section>
+
+<section class="page" id="spec">
+<div class="wrap">
+<div class="section-title" style="margin-bottom:10px">
+<div class="eyebrow">Business Specification</div>
+<h2>사업별 수치와 허가</h2>
+<p>사업 단위로 처리능력, 인증·등록·허가, 수거지역·대응권역, 제품 규격/용도를 표로 정리합니다. 일반 개발·홍보 문구는 생략합니다.</p>
+</div>
+
+<div class="section-grid two">
+<div class="card panel">
+<table class="table">
+<thead><tr><th>사업</th><th>핵심 처리능력/목표</th><th>등록·허가·인증</th><th>제품 규격/용도</th></tr></thead>
+<tbody>
+<tr>
+<td><strong>건설폐기물 중간처리</strong></td>
+<td>폐콘크리트·폐아스콘 투입 후 골재 재생, 원战力 t/day급</td>
+<td>중간처리업 등록</td>
+<td>순환골재 40mm 이하, 보조기층·되메움용</td>
+</tr>
+<tr>
+<td><strong>순환골재 상세 축</strong></td>
+<td>입도별 분급, 재생율, 잔류 금속 관리</td>
+<td>품질관리인증</td>
+<td>규격명, 치수변화율, 사용 구역, 도로·공원·되메움</td>
+</tr>
+<tr>
+<td><strong>해체공사</strong></td>
+<td>비계·구조물 해체, 석면해체제거</td>
+<td>석면해체업 등록</td>
+<td>석면 폐물 처리 절차 준수</td>
+</tr>
+<tr>
+<td><strong>수집운반</strong></td>
+<td>고정·이동식 적재장비, 배차계획</td>
+<td>운송차량 등록·보험</td>
+<td>사업장 직outsource망·쓰레기종량제</td>
+</tr>
+<tr>
+<td><strong>플랜트 임대</strong></td>
+<td>크러싱 9, 콘크리트 2세트 운영, 현장 배치 가능</td>
+<td>배치도·안전관리 확인</td>
+<td>모래·골재·배치 다용도</td>
+</tr>
+</tbody>
+</table>
+<div class="status" style="margin-top:12px"><span class="dot"></span>원칙: 사본 기준 데이터만 표기</div>
+</div>
+
+<div class="card panel" id="facility">
+<div class="section-title" style="margin-bottom:10px">
+<div class="eyebrow">Facility Layout</div>
+<h2>생산시설 배치도형</h2>
+<p>입고→파쇄→분급→출고 흐름을 보여주는 공정도와, 담양본사·문평주기장 위치 관계를 요약합니다.</p>
+</div>
+<div class="process"><span></span><span></span><span></span><span></span></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px">
+<div class="product">
+<div class="name">담양공장</div>
+<div class="spec">담양본사에 인접한 주 처리거점. 고정/이동 크러싱을 함께 운영합니다.</div>
+<div class="use">용도: 1차 파쇄, 재생골재 출고, 시멘트 혼합</div>
+</div>
+<div class="product">
+<div class="name">문평주기장</div>
+<div class="spec">물류 집하·분배 거점. 대형 장비 입출고가 가능한 평탄면 확보.</div>
+<div class="use">용도: 중간 집하, 장비 정비·대기, 견적 문의 접수</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section-grid three" style="margin-top:16px">
+<div class="card panel">
+<div class="eyebrow">Recycled Aggregate</div>
+<h3 style="margin:8px 0 0;font-size:18px;letter-spacing:-.03em;font-weight:900;color:var(--ink)">순환골재 상세 축</h3>
+<p style="margin:8px 0 0;color:var(--muted);font-size:13.5px;line-height:1.68">입도별 규격, 잔류 금속 기준, 사용 구역을 분리해 표기합니다.</p>
+<div class="table" style="margin-top:14px">
+<table class="table">
+<thead><tr><th>규격</th><th>치수 변화율</th><th>사용</th></tr></thead>
+<tbody>
+<tr><td>40mm 이하</td><td>15% 이하</td><td>도로기층</td></tr>
+<tr><td>20mm 이하</td><td>12% 이하</td><td>공원·보행로</td></tr>
+<tr><td>5mm 이하</td><td>10% 이하</td><td>되메움·매립</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="card panel">
+<div class="eyebrow">Permits & Cert</div>
+<h3 style="margin:8px 0 0;font-size:18px;letter-spacing:-.03em;font-weight:900;color:var(--ink)">인증·등록·허가증</h3>
+<div class="taglist" style="margin-top:12px">
+<span class="tag">사업자등록증</span><span class="tag">건설업등록</span><span class="tag">중간처리업</span><span class="tag">환경인증</span><span class="tag">품질관리인증</span><span class="tag">석면해체업</span><span class="tag">운송보험</span><span class="tag">방지시설운영</span>
+</div>
+<p style="margin:10px 0 0;color:var(--muted);font-size:13px">각 문서의 발급기관과 기한은 사본 기준으로만 표기합니다.</p>
+</div>
+<div class="card panel">
+<div class="eyebrow">Services</div>
+<h3 style="margin:8px 0 0;font-size:18px;letter-spacing:-.03em;font-weight:900;color:var(--ink)">전환 카드</h3>
+<p style="margin:8px 0 0;color:var(--muted);font-size:13.5px;line-height:1.68">수거에서 처리, 판매, 플랜트 임대까지 단계별로 전환합니다.</p>
+<div class="four" style="margin-top:12px;grid-template-columns:repeat(4,1fr)">
+<div class="product" style="padding:14px"><div class="name" style="font-size:14px">수거</div><div class="spec" style="margin-top:6px">수거지역별 현장 방문</div></div>
+<div class="product" style="padding:14px"><div class="name" style="font-size:14px">중간처리</div><div class="spec" style="margin-top:6px">파쇄·분급 처리</div></div>
+<div class="product" style="padding:14px"><div class="name" style="font-size:14px">판매</div><div class="spec" style="margin-top:6px">순환골재 출고</div></div>
+<div class="product" style="padding:14px"><div class="name" style="font-size:14px">임대</div><div class="spec" style="margin-top:6px">플랜트 설치 운영</div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="page" id="zones">
+<div class="wrap">
+<div class="section-title" style="margin-bottom:10px">
+<div class="eyebrow">Zones / Inquiry</div>
+<h2>수거지역·대응권역·견적문의</h2>
+<p>대상 지역과 견적 문의 경로를 구분해서 배치합니다. 브로슈어 문구보다 실제 확인 경로를 우선합니다.</p>
+</div>
+<div class="two">
+<div class="card panel">
+<div class="zone-list">
+<div class="zone"><div><b>담양·곡성·구례</b><small>담양본사 기준 60km 내</small></div><a class="btn ghost" href="#quote">견적문의</a></div>
+<div class="zone"><div><b>광주·나주</b><small>문평·광주사무실 대응</small></div><a class="btn ghost" href="#quote">현장 확인</a></div>
+<div class="zone"><div><b>순천·광양·여수</b><small>수협항 기준 현장 협의</small></div><a class="btn ghost" href="#quote">협의 요청</a></div>
+<div class="zone"><div><b>화순·함평·영광</b></div><a class="btn ghost" href="#quote">문의하기</a></div>
+</div>
+</div>
+<div class="map">
+<div class="grid"></div>
+<div class="pin"></div>
+<div class="copyright">© Inwon Industrial — 현재는 단순 배치 표시</div>
+</div>
+</div>
+
+<div class="cta-bar">
+<div class="cta-text">현장 상담 및 견적<small>평일 기준 상담 가능. 현장 일정 확인 후 방문.</small></div>
+<a class="btn primary" href="#quote">견적 문의하기</a>
+</div>
+</div>
+</section>
+
+<footer class="footer">
+<div class="wrap">
+<div class="footer-card">
+<div class="footer-grid">
+<div class="footer-brand">
+<strong>인원산업</strong>
+<p>건설폐기물 중간처리, 수집운반, 재생골재 생산판매, 해체공사, 플랜트 운영을 현장 중심으로 수행합니다.</p>
+</div>
+<div>
+<div class="footer-title">Quick Menu</div>
+<div class="footer-list"><a href="#spec">사업별 사양</a><a href="#zones">대응권역</a><a href="#facility">시설 배치</a><a href="#quote">견적문의</a></div>
+</div>
+<div>
+<div class="footer-title">Company</div>
+<div class="footer-list"><span>대표: </span><span>주소: 전남 담양군 봉산면 제월길 216-17</span><span>광주사무실: 서구 시청로 41 대우디오빌 2015</span></div>
+</div>
+<div>
+<div class="footer-title">Contact</div>
+<div class="footer-list"><span>문의: 현장 상담 가능</span><span>운영: 평일 기준</span></div>
+</div>
+</div>
+<div class="footer-bottom">© 2026 인원산업</div>
+</div>
+</div>
+</footer>
+
+</main>
+</body>
+</html>
